@@ -1,9 +1,9 @@
 # Tronics 🚀
 
-[![GitHub license](https://img.shields.io/github/license/your-username/tronics?style=for-the-badge)](https://github.com/your-username/tronics/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/your-username/tronics?style=for-the-badge)](https://github.com/your-username/tronics/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/your-username/tronics?style=for-the-badge)](https://github.com/your-username/tronics/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/your-username/tronics?style=for-the-badge)](https://github.com/your-username/tronics/issues)
+[![GitHub license](https://img.shields.io/github/license/Hafiz-shamnad/tronics?style=for-the-badge)](https://github.com/Hafiz-shamnad/tronics/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Hafiz-shamnad/tronics?style=for-the-badge)](https://github.com/Hafiz-shamnad/tronics/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Hafiz-shamnad/tronics?style=for-the-badge)](https://github.com/Hafiz-shamnad/tronics/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/Hafiz-shamnad/tronics?style=for-the-badge)](https://github.com/Hafiz-shamnad/tronics/issues)
 
 Welcome to **Tronics** 🎉 — a Git-inspired version control system designed to manage code, IoT device data, and CAD designs in one seamless workflow! 🌐 Tronics combines robust version control with specialized IoT state tracking and CAD file versioning, setting the stage for **TronicsHub**, a future platform for collaboration and innovation. 🛠️
 
@@ -322,5 +322,3 @@ Have questions, suggestions, or want to report an issue?
 
 We look forward to hearing from you\!
 
-```
-```
