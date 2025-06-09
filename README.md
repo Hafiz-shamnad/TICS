@@ -215,11 +215,11 @@ echo "sensor: updated" >> sensor_data.txt
 ```
 tronics/
 ├── tronics.c          # Core version control implementation
-├── test_tronics.sh    # Test script
+├── tronics.h          # Header file
+├── main.c             # Main Function Abstraction
+├── test.sh            # Test script for normal files and codes
+├── cad-test.sh        # Test script for cad files
 ├── README.md          # Documentation
-├── examples/
-│   ├── sensor_data.txt  # Sample IoT file
-│   └── cad_log.txt      # Sample CAD event log
 ```
 
 ---
@@ -255,12 +255,6 @@ We welcome contributions!
 3. Commit your changes `git commit -m "Add feature"`  
 4. Push the branch `git push origin feature-name`  
 5. Open a pull request 📬
-
----
-
-## License 📜
-
-Apache License 2.0. See [`LICENSE`](LICENSE) for details.
 
 ---
 
