@@ -2,11 +2,11 @@
 #include <string.h>
 #include "tronics.h"
 
-// Updated main function to support Git-like commit syntax
+// Modified main function (to add new commands)
 int main(int argc, char *argv[]) {
     if (argc < 2) {
         printf("Usage: %s <command> [args]\n", argv[0]);
-        printf("Commands: init, add, commit, log, status, diff, restore, branch, checkout, merge, history, stash, pop, list-stash, tag, list-tags, iot, cad\n");
+        printf("Commands: init, add, add-cad, commit, log, status, diff, diff-cad, restore, branch, checkout, merge, history, stash, pop, list-stash, tag, list-tags, iot, cad\n");
         return 1;
     }
 
@@ -14,6 +14,8 @@ int main(int argc, char *argv[]) {
         init_repo(argv[2]);
     } else if (strcmp(argv[1], "add") == 0 && argc == 3) {
         add_file(argv[2]);
+    } else if (strcmp(argv[1], "add-cad") == 0 && argc == 3) {
+        add_cad(argv[2]);
     } else if (strcmp(argv[1], "commit") == 0 && argc == 4 && strcmp(argv[2], "-m") == 0) {
         commit(argv[3]);
     } else if (strcmp(argv[1], "log") == 0 && argc == 2) {
@@ -22,6 +24,8 @@ int main(int argc, char *argv[]) {
         status();
     } else if (strcmp(argv[1], "diff") == 0 && argc == 3) {
         diff_file(argv[2]);
+    } else if (strcmp(argv[1], "diff-cad") == 0 && argc == 3) {
+        diff_cad(argv[2]);
     } else if (strcmp(argv[1], "restore") == 0 && argc == 3) {
         restore_file(argv[2]);
     } else if (strcmp(argv[1], "branch") == 0 && argc == 3) {
@@ -50,7 +54,7 @@ int main(int argc, char *argv[]) {
         simulate_cad();
     } else {
         printf("Unknown command or incorrect usage.\n");
-        printf("Commands: init, add, commit, log, status, diff, restore, branch, checkout, merge, history, stash, pop, list-stash, tag, list-tags, iot, cad\n");
+        printf("Commands: init, add, add-cad, commit, log, status, diff, diff-cad, restore, branch, checkout, merge, history, stash, pop, list-stash, tag, list-tags, iot, cad\n");
         return 1;
     }
 

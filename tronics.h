@@ -8,7 +8,6 @@ void init_repo(const char *repo_name);
 void add_file(const char *filename);
 void commit(const char *message);
 void show_log();
-void show_status();
 void simulate_iot();
 void simulate_cad();
 void diff_file(const char *filename);
@@ -24,5 +23,12 @@ void stash_pop();
 void stash_list();
 void create_tag(const char *tag_name);
 void list_tags();
+void diff_cad(const char *filename);
+void add_cad(const char *filename);
+int parse_stl_vertices(const char *filename);
+char *get_latest_commit(const char *branch);
+int is_meta_file(const char *filename);
+int is_duplicate(const char *filename, char listed[][256], int count);
+
 
 #endif
