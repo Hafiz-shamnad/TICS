@@ -1,2 +1,0 @@
-sensor: active
-Timestamp: 1749040534 | Temp: 24.2°C | Pressure: 1015 hPa

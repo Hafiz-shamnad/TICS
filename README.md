@@ -1,6 +1,6 @@
 # Tronics 🚀
 
-Welcome to **Tronics** 🎉 — a Git-inspired version control system designed to manage code, IoT devices, and CAD designs (e.g., STL, STEP files) in one seamless workflow! 🌐 Tronics combines powerful version control features with specialized IoT state tracking and CAD file versioning, setting the stage for **TronicsHub**, a future platform for collaboration and innovation. 🛠️
+Welcome to **Tronics** 🎉 — a Git-inspired version control system designed to manage code, IoT device data, and CAD designs in one seamless workflow! 🌐 Tronics combines robust version control with specialized IoT state tracking and CAD file versioning, setting the stage for **TronicsHub**, a future platform for collaboration and innovation. 🛠️
 
 ---
 
@@ -8,27 +8,47 @@ Welcome to **Tronics** 🎉 — a Git-inspired version control system designed t
 
 ### Version Control 📚
 
-* **Git-like Power 🔧**: Commit, branch, merge, rebase, diff, log, stash, and tag (lightweight and annotated).
-* **Diffing 🔍**: Compare text files, IoT states, and CAD metadata between commits.
-* **Remote Syncing 🌍**: Push/pull support (coming soon for TronicsHub integration).
+- **Git-like Power 🔧**: Commit, branch, merge, diff, log, stash, tag, and file history tracking.
+- **Diffing 🔍**: Compare text files and staged changes between commits.
+- **Status Checking 📊**: View staged and committed files with current branch details.
+- **File Restoration 🔄**: Restore files from previous commits.
 
 ### IoT Integration 📡
 
-* **Device Management 🖥️**: Track device states and configurations via MQTT.
-* **Firmware Versioning 💾**: Version firmware binaries with SHA-1 hashing.
-* **Device Groups 👥**: Manage multiple IoT devices as a single entity.
-* **Event Logging 📝**: Automatically commit IoT state changes.
+- **Device Simulation 🖥️**: Track simulated IoT device states (e.g., temperature, pressure).
+- **Event Logging 📝**: Automatically append IoT data to versioned files.
+- **Device Management 🛠️**: Store IoT sensor data in the repository (planned expansion for MQTT).
 
 ### CAD Handling 🖌️
 
-* **File Support 🗂️**: Version STL, STEP, and IGES files with metadata extraction (e.g., vertices, faces, volume).
-* **Compression 📦**: Store CAD files efficiently using zlib.
-* **Visual Diffing 👀**: Compare geometry and metadata changes *(in development)*.
-* **Preview Generation 🖼️**: Create thumbnails for CAD files *(planned)*.
+- **File Support 🗂️**: Version CAD event logs (e.g., draw_line events).
+- **Event Logging 📝**: Track CAD operations in versioned files.
+- **Metadata Tracking 📊**: Store CAD-related changes in the repository (planned support for STL/STEP files).
 
 ### CLI Interface 🖱️
 
-* **Commands**: `tronics init`, `tronics commit`, `tronics branch`, `tronics diff`, `tronics log`, `tronics stash`, `tronics tag`, `tronics add-device`, `tronics add-cad`, `tronics push/pull`.
+**Available Commands:**
+
+```bash
+tronics init
+tronics add
+tronics commit
+tronics log
+tronics status
+tronics diff
+tronics restore
+tronics branch
+tronics checkout
+tronics merge
+tronics history
+tronics stash
+tronics pop
+tronics list-stash
+tronics tag
+tronics list-tags
+tronics iot
+tronics cad
+```
 
 ---
 
@@ -36,14 +56,10 @@ Welcome to **Tronics** 🎉 — a Git-inspired version control system designed t
 
 ### Prerequisites
 
-* Python 3.8+ 🐍
-* Install dependencies:
-
-```bash
-pip install paho-mqtt trimesh pythonocc-core vtk
-```
-
-* An MQTT broker (e.g., Mosquitto) for IoT functionality 📡
+- A C compiler (e.g., `gcc`)
+- Standard C libraries: `stdio.h`, `stdlib.h`, `string.h`, `sys/stat.h`, `unistd.h`, `time.h`, `dirent.h`
+- POSIX-compliant system (Linux/macOS)
+- No external dependencies required
 
 ### Setup
 
@@ -52,11 +68,14 @@ pip install paho-mqtt trimesh pythonocc-core vtk
 git clone https://github.com/your-username/tronics.git
 cd tronics
 
-# Install dependencies
-pip install -r requirements.txt
+# Compile the Tronics executable
+gcc tronics.c -o tronics
+
+# Move executable to a system path (optional)
+sudo mv tronics /usr/local/bin/
 
 # Initialize a Tronics repository
-python -m tronics init
+./tronics init myrepo
 ```
 
 ---
@@ -66,91 +85,127 @@ python -m tronics init
 ### Initialize a Repository 🏗️
 
 ```bash
-python -m tronics init
+./tronics init myrepo
 ```
 
-Creates a `.tronics` directory to store objects, references, and configuration.
+Creates a `.tronics` directory in `myrepo` to store objects, references, stash, stage, history, tags, and configuration.
 
-### Add IoT Devices 📡
+### Add Files 📄
 
 ```bash
-python -m tronics add-device sensor1 --broker localhost --type temperature
+./tronics add sensor_data.txt
 ```
 
-Registers an IoT device and subscribes to its MQTT topics.
-
-### Add CAD Files 🖌️
-
-```bash
-python -m tronics add-cad design.stl
-```
-
-Adds and parses a CAD file, storing it with metadata (e.g., vertices, volume).
+Stages a file for commit.
 
 ### Commit Changes ✅
 
 ```bash
-python -m tronics commit -m "Initial commit with IoT and CAD"
+./tronics commit -m "Initial commit with sensor data"
 ```
 
-Commits staged files, IoT states, and CAD metadata.
+Commits staged files and logs the message.
+
+### Simulate IoT Data 📡
+
+```bash
+./tronics iot
+```
+
+Appends simulated IoT sensor data to `sensor_data.txt`.
+
+### Simulate CAD Events 🖌️
+
+```bash
+./tronics cad
+```
+
+Appends simulated CAD events to `cad_log.txt`.
 
 ### Create a Branch 🌿
 
 ```bash
-python -m tronics branch dev
+./tronics branch dev
 ```
 
-Creates a new branch named `dev`.
+Creates a new branch.
 
 ### View Commit History 📜
 
 ```bash
-python -m tronics log --limit 5
+./tronics log
 ```
 
-Displays the last 5 commits with timestamps and authors.
+Displays all commits with timestamps and messages.
 
-### Diff Commits 🔍
+### Diff Files 🔍
 
 ```bash
-python -m tronics diff <commit1> <commit2>
+./tronics diff sensor_data.txt
 ```
 
-Compares text files, IoT states, and CAD metadata between two commits.
+Compares the working file with its staged version.
 
 ### Stash Changes 📌
 
 ```bash
-python -m tronics stash
+./tronics stash
 ```
 
-Saves uncommitted changes for later.
+Saves staged changes.
 
 ### Tag a Commit 🏷️
 
 ```bash
-python -m tronics tag v1.0 --annotated
+./tronics tag v1.0
 ```
 
-Creates an annotated tag for the current commit.
+Creates a lightweight tag.
+
+### View Status 📊
+
+```bash
+./tronics status
+```
+
+Shows staged/committed files and current branch.
 
 ---
 
 ## Example Workflow 🛠️
 
-```python
-from tronics import TronicsRepo
+```bash
+# Initialize repository
+./tronics init testrepo
+cd testrepo
 
-repo = TronicsRepo("./tronics_repo")
-repo.iot_manager.add_device("sensor1", {"broker": "localhost", "type": "temperature"})
-repo.iot_manager.add_device_group("group1", ["sensor1"])
-repo.iot_manager.update_firmware("sensor1", "firmware.bin")
-repo.cad_manager.add_cad("design.stl")
-repo.commit("Initial commit")
-repo.branch("dev")
-repo.tag("v1.0", annotated=True)
-print(repo.log(limit=5))
+# Add and commit a file
+echo "sensor: active" > sensor_data.txt
+../tronics add sensor_data.txt
+../tronics commit -m "Initial sensor data"
+
+# Simulate IoT and CAD data
+../tronics iot
+../tronics cad
+
+# Create and switch to a branch
+../tronics branch dev
+../tronics checkout dev
+
+# Stash and pop changes
+echo "sensor: updated" >> sensor_data.txt
+../tronics add sensor_data.txt
+../tronics stash
+../tronics pop
+
+# Commit and view history
+../tronics commit -m "Updated sensor data"
+../tronics history sensor_data.txt
+
+# Merge and tag
+../tronics checkout main
+../tronics merge dev
+../tronics tag v1.0
 ```
 
 ---
@@ -159,68 +214,58 @@ print(repo.log(limit=5))
 
 ```
 tronics/
-├── tronics/
-│   ├── __init__.py
-│   ├── repo.py      # Core version control 📚
-│   ├── iot.py       # IoT device management 📡
-│   ├── cad.py       # CAD file handling 🖌️
-│   ├── api.py       # REST API (planned) 🌐
-│   ├── cli.py       # CLI interface 🖱️
-├── tests/
-│   ├── test_repo.py
-│   ├── test_iot.py
-│   ├── test_cad.py
+├── tronics.c          # Core version control implementation
+├── test_tronics.sh    # Test script
+├── README.md          # Documentation
 ├── examples/
-│   ├── sample.stl
-│   ├── firmware.bin
-├── requirements.txt
-└── README.md
+│   ├── sensor_data.txt  # Sample IoT file
+│   └── cad_log.txt      # Sample CAD event log
 ```
 
 ---
 
 ## Roadmap 🗺️
 
-### Core Enhancements (Q3 2025) 🚧
+### Core Enhancements (Q3 2025)
 
-* Implement merge conflict resolution 🔄
-* Add advanced CAD diffing (geometry, layers) 🖼️
-* Support CoAP for IoT alongside MQTT 📡
+- Merge conflict resolution
+- STL/STEP file versioning
+- MQTT IoT integration
 
-### TronicsHub Platform (Q4 2025) 🌐
+### TronicsHub Platform (Q4 2025)
 
-* Develop REST API for repository hosting 🖥️
-* Build web interface with React and Three.js for CAD visualization 🎨
-* Add collaboration features (pull requests, comments) 👥
+- Remote repository hosting
+- Web interface
+- Pull requests and collaboration tools
 
-### Advanced Features (Q1 2026) 🚀
+### Advanced Features (Q1 2026)
 
-* IoT real-time monitoring dashboard 📊
-* CAD marketplace for sharing designs 🛒
-* Integration with 3D printing services 🖨️
+- Real-time IoT monitoring dashboard
+- CAD diff/preview generation
+- External IoT/CAD tool integration
 
 ---
 
 ## Contributing 🤝
 
-We welcome contributions! Please follow these steps:
+We welcome contributions!
 
-1. Fork the repository 🍴
-2. Create a feature branch: `git checkout -b feature-name` 🌿
-3. Commit your changes: `git commit -m "Add feature"` ✅
-4. Push to the branch: `git push origin feature-name` 🚀
+1. Fork the repo 🍴  
+2. Create a feature branch `git checkout -b feature-name`  
+3. Commit your changes `git commit -m "Add feature"`  
+4. Push the branch `git push origin feature-name`  
 5. Open a pull request 📬
 
 ---
 
 ## License 📜
 
-Apache License. See `LICENSE` for details.
+Apache License 2.0. See [`LICENSE`](LICENSE) for details.
 
 ---
 
 ## Contact 📧
 
-For questions or feedback, open an issue on GitHub or reach out to [haafizshamnad@gmail.com](mailto:haafizshamnad@gmail.com).
+Open an issue or email [haafizshamnad@gmail.com](mailto:haafizshamnad@gmail.com)
 
-> Tronics is the foundation for TronicsHub, a future platform for collaborative IoT and CAD development. Join us in building the future of engineering! 🚀
+> Tronics is the foundation for **TronicsHub**, a future platform for collaborative IoT and CAD development. Join us in building the future of engineering! 🚀
