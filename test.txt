@@ -1,0 +1,52 @@
+=== Testing Tronics Version Control ===
+Initializing repository...
+Initialized empty Tronics repository in testrepo/.tronics
+✓ Repository initialized
+Testing non-CAD file workflow...
+Staged: sensor_data.txt
+✓ Non-CAD file staged
+Committed: "Added initial sensor data"
+✓ Non-CAD commit logged
+✓ Non-CAD status correct
+Testing CAD file workflow...
+Staged CAD: design.stl → .tronics/stage/
+✓ CAD file staged
+Committed: "Added initial CAD design"
+✓ CAD commit logged
+✓ CAD status shows committed file
+Simulating IoT data...
+IIoT data appended to sensor_data.txt
+✓ IoT data simulated
+Simulating CAD event...
+CAD event written to cad_log.txt
+✓ CAD event simulated
+Testing branching...
+Created branch: dev
+Created branch: cad-dev
+Switched to branch: cad-dev
+✓ Switched to cad-dev branch
+✓ Branches listed correctly
+Testing CAD file modification...
+Staged CAD: design.stl → .tronics/stage/
+✓ CAD diff shows metadata
+Committed: "Updated CAD geometry"
+Testing non-CAD file modification...
+Staged: sensor_data.txt
+Committed: "Updated sensor data"
+Testing stash...
+Staged CAD: design.stl → .tronics/stage/
+✓ Changes stashed
+✓ Stash popped and CAD file staged
+Committed: "Restored and updated CAD design"
+Testing merge...
+Switched to branch: main
+Staged CAD: design.stl → .tronics/stage/
+Committed: "Main branch CAD update"
+✓ Merge logged correctly
+Testing tags...
+Created tag: v1.0
+✓ Tag created
+Checking final status...
+✓ Final status correct
+=== All tests passed! ===
+Cleaning up...
