@@ -1,6 +1,7 @@
 #include "commit_ops.h"
 #include "file_ops.h"
 #include "repo_ops.h"
+#include "branch_ops.h"
 
 void copy_staged_files(const char *dest_dir) {
     DIR *dir = opendir(".tronics/stage");

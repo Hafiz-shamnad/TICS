@@ -219,8 +219,8 @@ solid test
 facet normal 0 0 1
 outer loop
 vertex 0 0 0
-vertex 1.5 0 0
-vertex 0 1.5 0
+vertex 3 0 0
+vertex 0 3 0
 endloop
 endfacet
 endsolid test
@@ -228,7 +228,7 @@ EOF
 ../tronics add-cad design.stl
 ../tronics commit -m "Main branch CAD update"
 ../tronics merge cad-dev > merge.txt 2>&1
-# if grep -q "CONFLICT: CAD file design.stl" merge.txt; then
+# if grep -q "CONFLICT: " merge.txt; then
 #     echo "✓ Merge detected CAD conflict"
 # else
 #     echo "Error: Merge failed to detect CAD conflict."

@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -g -Iinclude
-LDFLAGS =
+LDFLAGS = -lcrypto
 SRC_DIR = src
 OBJ_DIR = obj
 INCLUDE_DIR = include

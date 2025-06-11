@@ -2,6 +2,7 @@
 #define BRANCH_OPS_H
 
 #include "tronics.h"
+#include <openssl/md5.h>
 
 void create_branch(const char *name);
 void list_branches(void);
