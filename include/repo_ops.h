@@ -1,7 +1,7 @@
 #ifndef REPO_OPS_H
 #define REPO_OPS_H
 
-#include "tronics.h"
+#include "tics.h"
 
 void init_repo(const char *repo_name);
 void status(void);

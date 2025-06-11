@@ -7,11 +7,11 @@ void create_branch(const char *name)
     char path[MAX_PATH];
     size_t len = strlen(name);
     if (len + 14 > MAX_PATH)
-    { // 14 for ".tronics/refs/" + null
+    { // 14 for ".tics/refs/" + null
         printf("Error: Branch name too long: %s\n", name);
         return;
     }
-    snprintf(path, sizeof(path), ".tronics/refs/%s", name);
+    snprintf(path, sizeof(path), ".tics/refs/%s", name);
     FILE *f = fopen(path, "w");
     if (f)
     {
@@ -28,7 +28,7 @@ void create_branch(const char *name)
 void list_branches()
 {
     printf("Available branches:\n");
-    system("ls .tronics/refs 2>/dev/null || echo '(none)'");
+    system("ls .tics/refs 2>/dev/null || echo '(none)'");
 }
 
 void checkout_branch(const char *name)
@@ -36,18 +36,18 @@ void checkout_branch(const char *name)
     char path[MAX_PATH];
     size_t len = strlen(name);
     if (len + 14 > MAX_PATH)
-    { // 14 for ".tronics/refs/" + null
+    { // 14 for ".tics/refs/" + null
         printf("Error: Branch name too long: %s\n", name);
         return;
     }
-    snprintf(path, sizeof(path), ".tronics/refs/%s", name);
+    snprintf(path, sizeof(path), ".tics/refs/%s", name);
     if (access(path, F_OK) != 0)
     {
         printf("Branch %s does not exist.\n", name);
         return;
     }
 
-    FILE *config = fopen(".tronics/config", "w");
+    FILE *config = fopen(".tics/config", "w");
     if (config)
     {
         fprintf(config, "{ \"branch\": \"%s\", \"version\": \"0.3.1\" }\n", name);
@@ -66,11 +66,11 @@ char *get_latest_commit(const char *branch)
     char dir_path[MAX_PATH];
     size_t len = strlen(branch);
     if (len + 16 > MAX_PATH)
-    { // 16 for ".tronics/objects/" + null
+    { // 16 for ".tics/objects/" + null
         printf("Error: Branch name too long: %s\n", branch);
         return timestamp;
     }
-    snprintf(dir_path, sizeof(dir_path), ".tronics/objects/%s", branch);
+    snprintf(dir_path, sizeof(dir_path), ".tics/objects/%s", branch);
     DIR *dir = opendir(dir_path);
     if (!dir)
     {
@@ -112,7 +112,7 @@ void merge_branch(const char *branch_name)
     }
 
     char branch_path[1024];
-    snprintf(branch_path, sizeof(branch_path), ".tronics/refs/%s", branch_name);
+    snprintf(branch_path, sizeof(branch_path), ".tics/refs/%s", branch_name);
     if (access(branch_path, F_OK) != 0)
     {
         printf("Branch %s does not exist.\n", branch_name);
@@ -136,7 +136,7 @@ void merge_branch(const char *branch_name)
     char timestamp[64];
     strftime(timestamp, sizeof(timestamp), "%Y%m%d%H%M%S", localtime(&now));
     char commit_dir[1024];
-    snprintf(commit_dir, sizeof(commit_dir), ".tronics/objects/%s/%s", current_branch, timestamp);
+    snprintf(commit_dir, sizeof(commit_dir), ".tics/objects/%s/%s", current_branch, timestamp);
     create_dir(commit_dir);
     if (access(commit_dir, F_OK) != 0)
     {
@@ -145,7 +145,7 @@ void merge_branch(const char *branch_name)
     }
 
     char source_commit_dir[1024];
-    snprintf(source_commit_dir, sizeof(source_commit_dir), ".tronics/objects/%s/%s", branch_name, source_timestamp);
+    snprintf(source_commit_dir, sizeof(source_commit_dir), ".tics/objects/%s/%s", branch_name, source_timestamp);
     DIR *source_dir = opendir(source_commit_dir);
     if (!source_dir)
     {
@@ -173,7 +173,7 @@ void merge_branch(const char *branch_name)
             snprintf(dest_meta, sizeof(dest_meta), "%s/%s.meta", commit_dir, base_name);
 
             char current_meta[2048];
-            snprintf(current_meta, sizeof(current_meta), ".tronics/objects/%s/%s/%s.meta", current_branch, current_timestamp, base_name);
+            snprintf(current_meta, sizeof(current_meta), ".tics/objects/%s/%s/%s.meta", current_branch, current_timestamp, base_name);
 
             if (access(source_meta, F_OK) != 0)
             {
@@ -233,7 +233,7 @@ void merge_branch(const char *branch_name)
     if (strlen(current_timestamp) > 0)
     {
         char current_commit_dir[1024];
-        snprintf(current_commit_dir, sizeof(current_commit_dir), ".tronics/objects/%s/%s", current_branch, current_timestamp);
+        snprintf(current_commit_dir, sizeof(current_commit_dir), ".tics/objects/%s/%s", current_branch, current_timestamp);
         DIR *current_dir = opendir(current_commit_dir);
         if (current_dir)
         {
@@ -284,7 +284,7 @@ void merge_branch(const char *branch_name)
         return;
     }
 
-    FILE *logf = fopen(".tronics/log.txt", "a");
+    FILE *logf = fopen(".tics/log.txt", "a");
     if (logf)
     {
         fprintf(logf, "[%s] Merge: Merged branch %s into %s\n", timestamp, branch_name, current_branch);

@@ -7,55 +7,55 @@ void init_repo(const char *repo_name) {
     snprintf(path, sizeof(path), "%s", repo_name);
     create_dir(path);
 
-    snprintf(path, sizeof(path), "%s/.tronics", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics", repo_name);
     create_dir(path);
 
-    snprintf(path, sizeof(path), "%s/.tronics/objects", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/objects", repo_name);
     create_dir(path);
 
-    snprintf(path, sizeof(path), "%s/.tronics/refs", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/refs", repo_name);
     create_dir(path);
 
-    snprintf(path, sizeof(path), "%s/.tronics/stash", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/stash", repo_name);
     create_dir(path);
 
-    snprintf(path, sizeof(path), "%s/.tronics/stage", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/stage", repo_name);
     create_dir(path);
 
-    snprintf(path, sizeof(path), "%s/.tronics/tags", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/tags", repo_name);
     create_dir(path);
 
-    snprintf(path, sizeof(path), "%s/.tronics/history", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/history", repo_name);
     create_dir(path);
 
-    snprintf(path, sizeof(path), "%s/.tronics/log.txt", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/log.txt", repo_name);
     FILE *logf = fopen(path, "w");
     fclose(logf);
 
-    snprintf(path, sizeof(path), "%s/.tronics/stash/log.txt", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/stash/log.txt", repo_name);
     logf = fopen(path, "w");
     fclose(logf);
 
-    snprintf(path, sizeof(path), "%s/.tronics/config", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/config", repo_name);
     FILE *f = fopen(path, "w");
     if (f) {
         fprintf(f, "{ \"branch\": \"main\", \"version\": \"0.3.1\" }\n");
         fclose(f);
     }
 
-    snprintf(path, sizeof(path), "%s/.tronics/refs/main", repo_name);
+    snprintf(path, sizeof(path), "%s/.tics/refs/main", repo_name);
     f = fopen(path, "w");
     if (f) {
         fprintf(f, "Branch main created.\n");
         fclose(f);
     }
 
-    printf("Initialized empty Tronics repository in %s/.tronics\n", repo_name);
+    printf("Initialized empty tics repository in %s/.tics\n", repo_name);
 }
 
 char *get_current_branch() {
     static char branch[128];
-    FILE *config = fopen(".tronics/config", "r");
+    FILE *config = fopen(".tics/config", "r");
     if (config) {
         char line[256];
         if (fgets(line, sizeof(line), config)) {
@@ -78,10 +78,10 @@ char *get_current_branch() {
 
 void status(void) {
     char *current_branch = get_current_branch();
-    printf("== Tronics Status ==\n");
+    printf("== tics Status ==\n");
 
     printf("Staged files:\n");
-    DIR *stage_dir = opendir(".tronics/stage");
+    DIR *stage_dir = opendir(".tics/stage");
     int has_staged = 0;
     if (stage_dir) {
         struct dirent *entry;
@@ -93,7 +93,7 @@ void status(void) {
         }
         closedir(stage_dir);
     } else {
-        perror("Debug: Failed to open .tronics/stage");
+        perror("Debug: Failed to open .tics/stage");
     }
     if (!has_staged) {
         printf("  (none)\n");
@@ -101,7 +101,7 @@ void status(void) {
 
     printf("Committed files:\n");
     char commit_path[MAX_PATH];
-    snprintf(commit_path, sizeof(commit_path), ".tronics/objects/%s", current_branch);
+    snprintf(commit_path, sizeof(commit_path), ".tics/objects/%s", current_branch);
     DIR *branch_dir = opendir(commit_path);
     int has_committed = 0;
     if (branch_dir) {

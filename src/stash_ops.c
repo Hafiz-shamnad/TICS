@@ -8,33 +8,33 @@ void stash_push() {
 
     char stash_dir[MAX_PATH];
     size_t len = strlen(timestamp);
-    if (len + 14 > MAX_PATH) { // 14 for ".tronics/stash/" + null
+    if (len + 14 > MAX_PATH) { // 14 for ".tics/stash/" + null
         printf("Error: Timestamp too long: %s\n", timestamp);
         return;
     }
-    snprintf(stash_dir, sizeof(stash_dir), ".tronics/stash/%s", timestamp);
+    snprintf(stash_dir, sizeof(stash_dir), ".tics/stash/%s", timestamp);
 
     char command[MAX_PATH];
-    if (strlen(stash_dir) + 34 > MAX_PATH) { // 34 for "cp .tronics/stage/*  2>/dev/null"
+    if (strlen(stash_dir) + 34 > MAX_PATH) { // 34 for "cp .tics/stage/*  2>/dev/null"
         printf("Error: Command path too long for %s\n", stash_dir);
         return;
     }
-    snprintf(command, sizeof(command), "cp .tronics/stage/* %s/ 2>/dev/null", stash_dir);
+    snprintf(command, sizeof(command), "cp .tics/stage/* %s/ 2>/dev/null", stash_dir);
     create_dir(stash_dir);
 
     system(command);
 
-    FILE *logf = fopen(".tronics/stash/log.txt", "a");
+    FILE *logf = fopen(".tics/stash/log.txt", "a");
     if (logf) {
         fprintf(logf, "[%s] Stashed changes\n", timestamp);
         fclose(logf);
     }
 
-    system("rm -f .tronics/stage/*");
+    system("rm -f .tics/stage/*");
 }
 
 void stash_pop() {
-    DIR *dir = opendir(".tronics/stash");
+    DIR *dir = opendir(".tics/stash");
     if (!dir) {
         printf("No stashed changes found.\n");
         return;
@@ -58,24 +58,24 @@ void stash_pop() {
     }
 
     char command[MAX_PATH];
-    if (strlen(latest_stash) + 34 > MAX_PATH) { // 34 for "cp .tronics/stash// 2>/dev/null"
+    if (strlen(latest_stash) + 34 > MAX_PATH) { // 34 for "cp .tics/stash// 2>/dev/null"
         printf("Error: Command path too long for %s\n", latest_stash);
         return;
     }
-    snprintf(command, sizeof(command), "cp .tronics/stash/%s/* .tronics/stage/ 2>/dev/null", latest_stash);
+    snprintf(command, sizeof(command), "cp .tics/stash/%s/* .tics/stage/ 2>/dev/null", latest_stash);
     system(command);
 
-    if (strlen(latest_stash) + 20 > MAX_PATH) { // 20 for "rm -rf .tronics/stash/"
+    if (strlen(latest_stash) + 20 > MAX_PATH) { // 20 for "rm -rf .tics/stash/"
         printf("Error: Command path too long for %s\n", latest_stash);
         return;
     }
-    snprintf(command, sizeof(command), "rm -rf .tronics/stash/%s", latest_stash);
+    snprintf(command, sizeof(command), "rm -rf .tics/stash/%s", latest_stash);
     system(command);
 }
 
 void stash_list() {
     printf("Stashed changes:\n");
-    FILE *f = fopen(".tronics/stash/log.txt", "r");
+    FILE *f = fopen(".tics/stash/log.txt", "r");
     if (!f) {
         printf("(none)\n");
         return;

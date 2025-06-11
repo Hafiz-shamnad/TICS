@@ -1,7 +1,7 @@
 #ifndef COMMIT_OPS_H
 #define COMMIT_OPS_H
 
-#include "tronics.h"
+#include "tics.h"
 
 void copy_staged_files(const char *dest_dir);
 void commit(const char *message);

@@ -4,11 +4,11 @@
 void create_tag(const char *tag_name) {
     char path[MAX_PATH];
     size_t len = strlen(tag_name);
-    if (len + 14 > MAX_PATH) { // 14 for ".tronics/tags/" + null
+    if (len + 14 > MAX_PATH) { // 14 for ".tics/tags/" + null
         printf("Error: Tag name too long: %s\n", tag_name);
         return;
     }
-    snprintf(path, sizeof(path), ".tronics/tags/%s", tag_name);
+    snprintf(path, sizeof(path), ".tics/tags/%s", tag_name);
     FILE *f = fopen(path, "w");
     if (f) {
         time_t now = time(NULL);
@@ -24,5 +24,5 @@ void create_tag(const char *tag_name) {
 
 void list_tags() {
     printf("Available tags:\n");
-    system("ls .tronics/tags 2>/dev/null || echo '(none)'");
+    system("ls .tics/tags 2>/dev/null || echo '(none)'");
 }

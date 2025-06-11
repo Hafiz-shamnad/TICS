@@ -1,6 +1,6 @@
-=== Testing Tronics Version Control ===
+=== Testing tics Version Control ===
 Initializing repository...
-Initialized empty Tronics repository in testrepo/.tronics
+Initialized empty tics repository in testrepo/.tics
 ✓ Repository initialized
 Testing non-CAD file workflow...
 Staged: sensor_data.txt
@@ -9,7 +9,7 @@ Committed: "Added initial sensor data"
 ✓ Non-CAD commit logged
 ✓ Non-CAD status correct
 Testing CAD file workflow...
-Staged CAD: design.stl → .tronics/stage/
+Staged CAD: design.stl → .tics/stage/
 ✓ CAD file staged
 Committed: "Added initial CAD design"
 ✓ CAD commit logged
@@ -27,25 +27,33 @@ Switched to branch: cad-dev
 ✓ Switched to cad-dev branch
 ✓ Branches listed correctly
 Testing CAD file modification...
-Staged CAD: design.stl → .tronics/stage/
+Staged CAD: design.stl → .tics/stage/
 ✓ CAD diff shows metadata
 Committed: "Updated CAD geometry"
 Testing non-CAD file modification...
 Staged: sensor_data.txt
 Committed: "Updated sensor data"
 Testing stash...
-Staged CAD: design.stl → .tronics/stage/
+Staged CAD: design.stl → .tics/stage/
 ✓ Changes stashed
 ✓ Stash popped and CAD file staged
 Committed: "Restored and updated CAD design"
 Testing merge...
 Switched to branch: main
-Staged CAD: design.stl → .tronics/stage/
+Staged CAD: design.stl → .tics/stage/
 Committed: "Main branch CAD update"
 ✓ Merge logged correctly
 Testing tags...
 Created tag: v1.0
 ✓ Tag created
+Testing file history...
+✓ CAD file history correct
+✓ Non-CAD file history correct
+Testing restore...
+Staged: sensor_data.txt
+Committed: "Modified sensor data for restore test"
+Restored: sensor_data.txt
+✓ File restored correctly
 Checking final status...
 ✓ Final status correct
 === All tests passed! ===

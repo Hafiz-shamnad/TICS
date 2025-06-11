@@ -9,9 +9,9 @@ void simulate_iot() {
     time_t now = time(NULL);
     strftime(timestamp, sizeof(timestamp), "%Y%m%d%H%M%S", localtime(&now));
     char path[MAX_PATH];
-    snprintf(path, sizeof(path), ".tronics/objects/%s/%s", branch, timestamp);
+    snprintf(path, sizeof(path), ".tics/objects/%s/%s", branch, timestamp);
     create_dir(path);
-    snprintf(path, sizeof(path), ".tronics/objects/%s/%s/sensor_data.txt", branch, timestamp);
+    snprintf(path, sizeof(path), ".tics/objects/%s/%s/sensor_data.txt", branch, timestamp);
     FILE *f = fopen(path, "a");
     if (f) {
         fprintf(f, "Timestamp: %ld | Temp: 24.2°C | Pressure: 1015 hPa\n", now);
@@ -28,9 +28,9 @@ void simulate_cad() {
     time_t now = time(NULL);
     strftime(timestamp, sizeof(timestamp), "%Y%m%d%H%M%S", localtime(&now));
     char path[MAX_PATH];
-    snprintf(path, sizeof(path), ".tronics/objects/%s/%s", branch, timestamp);
+    snprintf(path, sizeof(path), ".tics/objects/%s/%s", branch, timestamp);
     create_dir(path);
-    snprintf(path, sizeof(path), ".tronics/objects/%s/%s/cad_log.txt", branch, timestamp);
+    snprintf(path, sizeof(path), ".tics/objects/%s/%s/cad_log.txt", branch, timestamp);
     FILE *f = fopen(path, "a");
     if (f) {
         fprintf(f, "CAD event: draw_line from (0,0) to (100,200)\n");
@@ -79,11 +79,11 @@ int parse_stl_vertices(const char *filename) {
 
 void add_cad(const char *filename) {
     char dest[512];
-    snprintf(dest, sizeof(dest), ".tronics/stage/%s", filename);
+    snprintf(dest, sizeof(dest), ".tics/stage/%s", filename);
     copy_file(filename, dest);
 
     char meta_path[512];
-    snprintf(meta_path, sizeof(meta_path), ".tronics/stage/%s.meta", filename);
+    snprintf(meta_path, sizeof(meta_path), ".tics/stage/%s.meta", filename);
     FILE *meta = fopen(meta_path, "w");
     if (meta) {
         struct stat st;
@@ -91,7 +91,7 @@ void add_cad(const char *filename) {
             int vertices = parse_stl_vertices(filename);
             fprintf(meta, "size:%ld\nvertices:%d\n", st.st_size, vertices >= 0 ? vertices : 0);
             fclose(meta);
-            printf("Staged CAD: %s → .tronics/stage/\n", filename);
+            printf("Staged CAD: %s → .tics/stage/\n", filename);
         } else {
             perror("Error getting file stats");
             fclose(meta);
@@ -108,7 +108,7 @@ void diff_cad(const char *filename) {
     }
 
     char meta_path[MAX_PATH];
-    snprintf(meta_path, sizeof(meta_path), ".tronics/stage/%s.meta", filename);
+    snprintf(meta_path, sizeof(meta_path), ".tics/stage/%s.meta", filename);
 
     if (access(meta_path, F_OK) == 0) {
         printf("CAD Metadata Diff (%s):\n", filename);

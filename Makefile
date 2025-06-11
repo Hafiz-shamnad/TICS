@@ -6,7 +6,7 @@ OBJ_DIR = obj
 INCLUDE_DIR = include
 SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SOURCES))
-EXECUTABLE = tronics
+EXECUTABLE = tics
 HEADERS = $(wildcard $(INCLUDE_DIR)/*.h)
 
 # Check if main.c exists
@@ -29,3 +29,11 @@ clean:
 	rm -rf $(OBJ_DIR) $(EXECUTABLE)
 
 .PHONY: all clean
+
+install: $(EXECUTABLE)
+	sudo cp $(EXECUTABLE) /usr/local/bin/$(EXECUTABLE)
+	@echo "✅ Installed 'tics' to /usr/local/bin"
+
+uninstall:
+	sudo rm -f /usr/local/bin/$(EXECUTABLE)
+	@echo "🗑️ Uninstalled 'tics' from /usr/local/bin"

@@ -1,7 +1,7 @@
 #ifndef STASH_OPS_H
 #define STASH_OPS_H
 
-#include "tronics.h"
+#include "tics.h"
 
 void stash_push(void);
 void stash_pop(void);
